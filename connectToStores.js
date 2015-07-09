@@ -23,6 +23,9 @@ function createComponent(Component, stores, getStateFromStores, customContextTyp
             stores.forEach(function storesEach(Store) {
                 this.context.getStore(Store).addChangeListener(this._onStoreChange);
             }, this);
+
+            // may have missed store changes before setting listeners
+            this.setState(this.getStateFromStores());
         },
         componentWillUnmount: function componentWillUnmount() {
             stores.forEach(function storesEach(Store) {
